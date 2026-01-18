@@ -1,0 +1,628 @@
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+    <meta charset="UTF-8">
+    <title>Liên hệ - Hướng nghiệp với Tin học</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <!-- Google Font -->
+    <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@300;400;600;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">
+    <link rel="icon" type="image/x-icon" href="smurfcat.ico">
+    
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'Montserrat', sans-serif;
+        }
+
+        body {
+            background: #f4f7fb;
+            color: #333;
+            line-height: 1.6;
+            padding-top: 80px;
+        }
+
+        /* ================= NAV ================= */
+        nav {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            background: rgba(255,255,255,0.95);
+            z-index: 1000;
+            box-shadow: 0 2px 12px rgba(0,0,0,0.12);
+            backdrop-filter: blur(6px);
+        }
+
+        .nav-container {
+            max-width: 100%;
+            margin: auto;
+            padding: 20px 40px;
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+        }
+
+        .nav-logo {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            text-decoration: none;
+            font-weight: 700;
+            color: #1e40af;
+        }
+
+        .nav-logo img {
+            width: 40px;
+            height: 40px;
+            border-radius: 50%;
+        }
+
+        .nav-right {
+            display: flex;
+            align-items: center;
+            gap: 25px;
+        }
+
+        .nav-menu {
+            display: flex;
+            list-style: none;
+            gap: 24px;
+        }
+
+        .nav-menu a {
+            text-decoration: none;
+            font-weight: 600;
+            color: #333;
+            position: relative;
+        }
+
+        .nav-menu a::after {
+            content: "";
+            position: absolute;
+            left: 0;
+            bottom: -6px;
+            width: 0;
+            height: 2px;
+            background: #2563eb;
+            transition: width 0.3s ease;
+        }
+
+        .nav-menu a:hover::after {
+            width: 100%;
+        }
+
+        .nav-search {
+            position: relative;
+        }
+
+        .nav-search input {
+            padding: 10px 40px 10px 16px;
+            border-radius: 20px;
+            border: 1.5px solid #c7d2fe;
+            outline: none;
+            background: #eef2ff;
+            color: #1e3a8a;
+            font-size: 14px;
+            transition: box-shadow 0.3s, border 0.3s;
+        }
+
+        .nav-search input::placeholder {
+            color: #64748b;
+        }
+
+        .nav-search input:focus {
+            border-color: #2563eb;
+            box-shadow: 0 0 0 3px rgba(37, 99, 235, 0.2);
+        }
+
+        .nav-search i {
+            position: absolute;
+            right: 12px;
+            top: 50%;
+            transform: translateY(-50%);
+            color: #2563eb;
+            font-size: 14px;
+            pointer-events: none;
+        }
+
+        /* ================= CONTACT SECTION ================= */
+        .contact-container {
+            max-width: 900px;
+            margin: 60px auto;
+            padding: 0 20px;
+        }
+
+        .contact-header {
+            text-align: center;
+            margin-bottom: 50px;
+        }
+
+        .contact-header h1 {
+            font-size: 3rem;
+            color: #1e40af;
+            margin-bottom: 15px;
+            background: linear-gradient(135deg, #2563eb, #1e40af);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+        }
+
+        .contact-header p {
+            font-size: 1.1rem;
+            color: #64748b;
+        }
+
+        .form-card {
+            background: white;
+            border-radius: 20px;
+            padding: 50px;
+            box-shadow: 0 20px 60px rgba(0,0,0,0.1);
+            position: relative;
+            overflow: hidden;
+        }
+
+        .form-card::before {
+            content: "";
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 5px;
+            background: linear-gradient(90deg, #2563eb, #1e40af, #2563eb);
+            background-size: 200% 100%;
+            animation: gradientShift 3s ease infinite;
+        }
+
+        @keyframes gradientShift {
+            0%, 100% { background-position: 0% 50%; }
+            50% { background-position: 100% 50%; }
+        }
+
+        .form-group {
+            margin-bottom: 30px;
+        }
+
+        .form-group label {
+            display: block;
+            font-weight: 600;
+            color: #1e40af;
+            margin-bottom: 8px;
+            font-size: 15px;
+        }
+
+        .form-group input,
+        .form-group select,
+        .form-group textarea {
+            width: 100%;
+            padding: 14px 18px;
+            border: 2px solid #e0e7ff;
+            border-radius: 12px;
+            font-size: 15px;
+            transition: all 0.3s ease;
+            background: #f8fafc;
+        }
+
+        .form-group input:focus,
+        .form-group select:focus,
+        .form-group textarea:focus {
+            outline: none;
+            border-color: #2563eb;
+            background: white;
+            box-shadow: 0 0 0 4px rgba(37, 99, 235, 0.1);
+            transform: translateY(-2px);
+        }
+
+        .form-group textarea {
+            resize: vertical;
+            min-height: 120px;
+        }
+
+        .form-row {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 20px;
+        }
+
+        .submit-btn {
+            width: 100%;
+            padding: 16px;
+            background: linear-gradient(135deg, #2563eb, #1e40af);
+            color: white;
+            border: none;
+            border-radius: 12px;
+            font-size: 16px;
+            font-weight: 600;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            margin-top: 10px;
+        }
+
+        .submit-btn:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 15px 35px rgba(37, 99, 235, 0.3);
+        }
+
+        .submit-btn:active {
+            transform: translateY(-1px);
+        }
+
+        /* ================= SUCCESS MESSAGE ================= */
+        .success-message {
+            display: none;
+            background: linear-gradient(135deg, #10b981, #059669);
+            color: white;
+            padding: 20px;
+            border-radius: 12px;
+            text-align: center;
+            margin-bottom: 30px;
+            animation: slideDown 0.5s ease;
+        }
+
+        .success-message.show {
+            display: block;
+        }
+
+        .success-message i {
+            font-size: 48px;
+            margin-bottom: 10px;
+        }
+
+        @keyframes slideDown {
+            from {
+                opacity: 0;
+                transform: translateY(-20px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        /* ================= FOOTER ================= */
+        .footer {
+            position: relative;
+            width: 100%;
+            background: linear-gradient(180deg, #1e3a8a, #3b82f6);
+            padding: 90px 20px 40px;
+            text-align: center;
+            overflow: hidden;
+            margin-top: 100px;
+        }
+
+        .footer-waves {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 150px;
+            overflow: hidden;
+            mask-image: linear-gradient(to right, transparent 0%, black 10%, black 90%, transparent 100%);
+            -webkit-mask-image: linear-gradient(to right, transparent 0%, black 10%, black 90%, transparent 100%);
+        }
+
+        .footer-wave {
+            fill: #2563eb;
+        }
+
+        .footer-wave.wave1 {
+            opacity: 0.9;
+            animation: waveFast 6s ease-in-out infinite alternate;
+        }
+
+        .footer-wave.wave2 {
+            opacity: 0.45;
+            animation: waveFastReverse 9s ease-in-out infinite alternate;
+        }
+
+        @keyframes waveFast {
+            from { transform: translateX(0); }
+            to { transform: translateX(-140px); }
+        }
+
+        @keyframes waveFastReverse {
+            from { transform: translateX(0); }
+            to { transform: translateX(140px); }
+        }
+
+        .footer-social {
+            display: flex;
+            justify-content: center;
+            gap: 22px;
+            list-style: none;
+            margin: 30px 0 18px;
+            padding: 0;
+        }
+
+        .footer-social a {
+            width: 54px;
+            height: 54px;
+            border-radius: 50%;
+            background: rgba(255,255,255,0.15);
+            color: white;
+            font-size: 26px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            text-decoration: none;
+            transition: transform 0.18s ease-out, box-shadow 0.18s ease-out, background 0.18s ease-out;
+        }
+
+        .footer-social a:hover {
+            transform: scale(1.15) translateY(-4px);
+            background: rgba(255,255,255,0.25);
+            box-shadow: 0 10px 22px rgba(0,0,0,0.28);
+        }
+
+        .footer-menu {
+            display: flex;
+            justify-content: center;
+            gap: 24px;
+            list-style: none;
+            padding: 0;
+        }
+
+        .footer-menu a {
+            color: white;
+            text-decoration: none;
+            font-size: 15px;
+            opacity: 0.85;
+        }
+
+        .footer-menu a:hover {
+            opacity: 1;
+        }
+
+        /* ================= RESPONSIVE ================= */
+        @media (max-width: 768px) {
+            .form-row {
+                grid-template-columns: 1fr;
+            }
+
+            .form-card {
+                padding: 30px 20px;
+            }
+
+            .contact-header h1 {
+                font-size: 2rem;
+            }
+
+            .nav-right {
+                flex-direction: column;
+                align-items: flex-end;
+                gap: 12px;
+            }
+
+            .nav-menu {
+                gap: 16px;
+            }
+        }
+    </style>
+</head>
+<body>
+
+<nav>
+    <div class="nav-container">
+        <a href="index.html" class="nav-logo">
+            <img src="https://www.indy100.com/media-library/we-live-we-love-we-lie.jpg?id=39753962&width=1245&height=700&quality=85&coordinates=0%2C0%2C0%2C0" alt="Cat Icon">
+            Home
+        </a>
+
+        <div class="nav-right">
+            <ul class="nav-menu">
+                <li><a href="index.html#about">About</a></li>
+                <li><a href="index.html#suachua">Category</a></li>
+                <li><a href="contact.html">Contact Us</a></li>
+            </ul>
+
+            <div class="nav-search">
+                <input type="text" placeholder="Tìm kiếm...">
+                <i class="fas fa-search"></i>
+            </div>
+        </div>
+    </div>
+</nav>
+
+<div class="contact-container">
+    <div class="contact-header">
+        <h1>Tư vấn Hướng nghiệp</h1>
+        <p>Điền thông tin để nhận tư vấn về lộ trình nghề nghiệp trong lĩnh vực Công nghệ Thông tin</p>
+    </div>
+
+    <div class="success-message" id="successMessage">
+        <i class="fas fa-check-circle"></i>
+        <h3>Gửi thành công!</h3>
+        <p>Cảm ơn bạn đã đăng ký. Chúng tôi sẽ liên hệ với bạn sớm nhất có thể.</p>
+    </div>
+
+    <div class="form-card">
+        <form id="contactForm">
+            <div class="form-row">
+                <div class="form-group">
+                    <label for="fullname">
+                        <i class="fas fa-user"></i> Họ và tên *
+                    </label>
+                    <input type="text" id="fullname" name="fullname" required placeholder="Nguyễn Văn A">
+                </div>
+
+                <div class="form-group">
+                    <label for="email">
+                        <i class="fas fa-envelope"></i> Email *
+                    </label>
+                    <input type="email" id="email" name="email" required placeholder="example@email.com">
+                </div>
+            </div>
+
+            <div class="form-row">
+                <div class="form-group">
+                    <label for="phone">
+                        <i class="fas fa-phone"></i> Số điện thoại *
+                    </label>
+                    <input type="tel" id="phone" name="phone" required placeholder="0123456789">
+                </div>
+
+                <div class="form-group">
+                    <label for="age">
+                        <i class="fas fa-calendar-alt"></i> Tuổi
+                    </label>
+                    <input type="number" id="age" name="age" min="15" max="100" placeholder="18">
+                </div>
+            </div>
+
+            <div class="form-group">
+                <label for="education">
+                    <i class="fas fa-graduation-cap"></i> Trình độ học vấn hiện tại *
+                </label>
+                <select id="education" name="education" required>
+                    <option value="">-- Chọn trình độ --</option>
+                    <option value="thcs">THCS (Trung học cơ sở)</option>
+                    <option value="thpt">THPT (Trung học phổ thông)</option>
+                    <option value="caodang">Cao đẳng</option>
+                    <option value="daihoc">Đại học</option>
+                    <option value="other">Khác</option>
+                </select>
+            </div>
+
+            <div class="form-group">
+                <label for="interest">
+                    <i class="fas fa-heart"></i> Lĩnh vực quan tâm *
+                </label>
+                <select id="interest" name="interest" required>
+                    <option value="">-- Chọn lĩnh vực --</option>
+                    <option value="suachua">Sửa chữa & Bảo trì máy tính</option>
+                    <option value="quantri">Quản trị hệ thống & Mạng</option>
+                    <option value="laptrinhweb">Lập trình Web</option>
+                    <option value="laptrinhapp">Lập trình App</option>
+                    <option value="datascience">Khoa học dữ liệu / AI</option>
+                    <option value="security">An ninh mạng</option>
+                    <option value="design">Thiết kế đồ họa / UI-UX</option>
+                    <option value="other">Chưa rõ / Tư vấn chung</option>
+                </select>
+            </div>
+
+            <div class="form-group">
+                <label for="experience">
+                    <i class="fas fa-code"></i> Kinh nghiệm với CNTT
+                </label>
+                <select id="experience" name="experience">
+                    <option value="">-- Chọn mức độ --</option>
+                    <option value="none">Chưa có kinh nghiệm</option>
+                    <option value="basic">Biết cơ bản</option>
+                    <option value="intermediate">Trung bình</option>
+                    <option value="advanced">Nâng cao</option>
+                </select>
+            </div>
+
+            <div class="form-group">
+                <label for="message">
+                    <i class="fas fa-comment-dots"></i> Câu hỏi / Ghi chú thêm
+                </label>
+                <textarea id="message" name="message" placeholder="Chia sẻ thêm về mục tiêu nghề nghiệp, câu hỏi cần tư vấn..."></textarea>
+            </div>
+
+            <button type="submit" class="submit-btn">
+                <i class="fas fa-paper-plane"></i> Gửi đăng ký tư vấn
+            </button>
+        </form>
+    </div>
+</div>
+
+<footer class="footer">
+    <svg class="footer-waves" viewBox="0 0 1440 320" preserveAspectRatio="none">
+        <path class="footer-wave wave1"
+            d="M0,160L48,176C96,192,192,224,288,213.3C384,203,480,149,576,138.7C672,128,768,160,864,170.7C960,181,1056,171,1152,160C1248,149,1344,139,1392,133.3L1440,128L1440,0L0,0Z">
+        </path>
+        <path class="footer-wave wave2"
+            d="M0,192L60,181.3C120,171,240,149,360,154.7C480,160,600,192,720,192C840,192,960,160,1080,149.3C1200,139,1320,149,1380,154.7L1440,160L1440,0L0,0Z">
+        </path>
+    </svg>
+
+    <ul class="footer-social">
+        <li><a href="https://www.facebook.com/share/1G39Ed7dzg/"><i class="fab fa-facebook-f"></i></a></li>
+        <li><a href="https://github.com/khanhnguyen1407"><i class="fab fa-github"></i></a></li>
+        <li><a href="https://discord.com/users/895229723691589662"><i class="fab fa-discord"></i></a></li>
+        <li><a href="https://www.instagram.com/khanh_nguyenk.1407?igsh=ZHR2dWpsczhlYm1o"><i class="fab fa-instagram"></i></a></li>
+    </ul>
+
+    <ul class="footer-menu">
+        <li><a href="index.html">Home</a></li>
+        <li><a href="index.html#about">About</a></li>
+        <li><a href="index.html#suachua">Category</a></li>
+        <li><a href="contact.html">Contact</a></li>
+    </ul>
+</footer>
+
+<script>
+    const form = document.getElementById('contactForm');
+    const successMessage = document.getElementById('successMessage');
+    
+    // ⚠️ THAY ĐỔI URL NÀY BẰNG WEB APP URL CỦA BẠN
+    const GOOGLE_SCRIPT_URL = 'https://script.google.com/macros/s/AKfycbw6dIFetZ-vdr4_bhZTGJD6fd2ZNtuQYrtOrABlNQKABdvhQHeUZOrPyejn84pRrDue/exec';
+
+    form.addEventListener('submit', async function(e) {
+        e.preventDefault();
+        
+        // Vô hiệu hóa nút submit
+        const submitBtn = form.querySelector('.submit-btn');
+        const originalText = submitBtn.innerHTML;
+        submitBtn.disabled = true;
+        submitBtn.innerHTML = '<i class="fas fa-spinner fa-spin"></i> Đang gửi...';
+        
+        try {
+            // Thu thập dữ liệu form
+            const formData = new FormData(form);
+            const data = Object.fromEntries(formData);
+            
+            // Gửi dữ liệu đến Google Sheets
+            const response = await fetch(GOOGLE_SCRIPT_URL, {
+                method: 'POST',
+                mode: 'no-cors',
+                headers: {
+                    'Content-Type': 'application/json',
+                },
+                body: JSON.stringify(data)
+            });
+            
+            // Hiển thị thông báo thành công
+            successMessage.classList.add('show');
+            
+            // Reset form
+            form.reset();
+            
+            // Cuộn lên đầu trang
+            window.scrollTo({ top: 0, behavior: 'smooth' });
+            
+            console.log('✅ Dữ liệu đã được gửi thành công!');
+            
+        } catch (error) {
+            console.error('❌ Lỗi khi gửi dữ liệu:', error);
+            alert('Có lỗi xảy ra khi gửi dữ liệu. Vui lòng thử lại!');
+        } finally {
+            // Khôi phục nút submit
+            submitBtn.disabled = false;
+            submitBtn.innerHTML = originalText;
+            
+            // Ẩn thông báo sau 5 giây
+            setTimeout(() => {
+                successMessage.classList.remove('show');
+            }, 5000);
+        }
+    });
+
+    // Smooth scroll cho nav links
+    document.querySelectorAll('a[href^="#"]').forEach(link => {
+        link.addEventListener('click', e => {
+            const targetId = link.getAttribute('href');
+            if (targetId.startsWith('#') && document.querySelector(targetId)) {
+                e.preventDefault();
+                document.querySelector(targetId).scrollIntoView({ behavior: 'smooth' });
+            }
+        });
+    });
+</script>
+
+</body>
+</html>

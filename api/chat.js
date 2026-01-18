@@ -1,12 +1,8 @@
-import OpenAI from "openai";
+import { GoogleGenerativeAI } from "@google/generative-ai";
 
-// ===== DeepSeek client (OpenAI-compatible) =====
-const client = new OpenAI({
-  apiKey: process.env.DEEPSEEK_API_KEY,
-  baseURL: "https://api.deepseek.com"
-});
+const genAI = new GoogleGenerativeAI(process.env.GEMINI_API_KEY);
 
-// ===== Simple rate limit theo IP (Vercel-friendly) =====
+// ===== Chống spam theo IP (nhẹ, hợp Vercel) =====
 const ipCooldown = new Map();
 const COOLDOWN_MS = 3000; // 3 giây
 
@@ -22,7 +18,7 @@ export default async function handler(req, res) {
 
   const now = Date.now();
 
-  // ===== Chống spam =====
+  // ===== Rate limit đơn giản =====
   if (ipCooldown.has(ip) && now - ipCooldown.get(ip) < COOLDOWN_MS) {
     return res.status(429).json({
       reply: "⏳ Bạn gửi quá nhanh, vui lòng chờ vài giây rồi thử lại."
@@ -39,37 +35,33 @@ export default async function handler(req, res) {
       });
     }
 
-    const completion = await client.chat.completions.create({
-      model: "deepseek-chat",
-      messages: [
-        {
-          role: "system",
-          content:
-            "Bạn là AI tư vấn hướng nghiệp CNTT. Trả lời bằng tiếng Việt, rõ ràng, dễ hiểu."
-        },
-        {
-          role: "user",
-          content: message
-        }
-      ],
-      temperature: 0.7
+    const model = genAI.getGenerativeModel({
+      model: "models/gemini-2.5-flash"
     });
 
-    const reply = completion.choices[0].message.content;
+    const result = await model.generateContent(
+      `Bạn là AI tư vấn hướng nghiệp CNTT.
+Trả lời bằng tiếng Việt, rõ ràng, dễ hiểu.
+
+Câu hỏi: ${message}`
+    );
+
+    const reply = result.response.text();
 
     return res.status(200).json({ reply });
   } catch (err) {
-    console.error("DeepSeek error:", err);
+    console.error("Gemini error:", err);
 
-    // ===== Bắt lỗi quota / rate limit =====
+    // ===== HẾT QUOTA / RATE LIMIT =====
     if (err.status === 429) {
       return res.status(429).json({
-        reply: "⚠️ AI đang bận hoặc bạn gửi quá nhiều yêu cầu. Vui lòng thử lại sau."
+        reply:
+          "⚠️ AI đã đạt giới hạn hôm nay. Vui lòng thử lại sau hoặc quay lại ngày mai."
       });
     }
 
     return res.status(500).json({
-      reply: "Lỗi DeepSeek API"
+      reply: "Lỗi Gemini API"
     });
   }
 }
